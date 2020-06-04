@@ -1,0 +1,120 @@
+
+Write a client-server program in C++. You are allowed (and encouraged) to use
+the C++ standard libraries but no other outside helper libraries should be used.
+
+Please make sure that the resultant code is (build/test)-able entirely from the
+command-line, no IDE install etc. should be required for building and testing the
+code. A recent version of C++11 or a C++14 compiler is all one should need. Please
+feel free to choose either of those standards versions. Please make sure to
+explicitly define the version of C++ standard in your compile commands and/or
+build files (e.g. with a "std=c++11/14" option or equivalent as per your compilers'
+option syntax). In particular, this also includes the use of threading and
+synchronization primitives available in the C++ standard libraries. There should
+be no need to use any platform specific threading facilities. In general, please
+avoid using any platform specific APIs/Libraries etc at all.
+
+A simple script (or Makefile rules if using make) to run the tests and print out
+the results would be nice. Please make sure to test your solution with at least 3
+simultaneous clients. The idea is to come up with the simplest and easiest to
+understand solution that fulfills all the requirements.
+
+Problem Statement
+-----------------
+
+You'll be creating a highly scalable publish-subscribe system with a rudimentary
+feature-set.
+
+* Client Side:
+
+  Each client is a publisher of a set of messages. Each message has
+  the form:
+
+    Topic      :    Message Text    :    Priority
+    (string)        (string)              int
+
+  For the purposes of this exercise, each client will be reading from
+  an input text file where each line contains a message in the above
+  format. Here are the contents of an sample input file:
+
+   "Sports"        : "NBA basketball has been canceled for 2020"        :  1
+   "Science News"  : "New vaccine under trial for SARS-CoV-2"           :  1
+   "Science News"  : "Long term data shows Hurricanes getting stronger"  :  3
+   "Sports"        : "2020 California Spelling Bee will move to Zoom"    :  4
+   "Journalism"    : "TheOnion writers quit en-masse. Satire is dead"    :  5
+   "Weather"       : "Cloudy with a chance of aliens"                    :  6
+   "Weather"       : "Hurricane Bob is bearing down on Florida keys"      :  1
+
+
+  The client's job is read the input file given to it and send this file to the
+  server over the network. In other words, publish all the messages contained in
+  this file to the server.
+
+  For "send over the network" part of the problem, you're free to use TCP or UDP
+  as you see fit. If using UDP, we'll assume that the network between the client
+  and the server is lossless. That is, there's no need to consider packet loss due
+  to network transmission in your protocol.
+
+  Also, you're free to choose the wire-format for the message you use as well as
+ any meta-data about the message. In other words, you're free to create a suitable
+ protocol for this purpose.
+
+
+* Server Side
+
+  This is the core of the Publish/Subscribe service. The server accepts the
+  published messages from multiple clients simultaneously and sends them to
+  subscribers as quickly as possible. (Note, for "subscribers", we'll just use
+  local files for the purposes of this exercise. Read on below for more details).
+
+  The server loads a subscribers config file at program start time. This file
+  contains a set of records that map subscriber ID's to their topics of
+  interest. Here are the contents of a sample config file:
+
+  12a45d01    "Sports"
+  12a45d01    "Science News"
+  32d45c12    "Science News"
+  544dda13    "Journalism"
+  8700f123    "Weather"
+  8700f123    "Journalism"
+  12a45d01    "Weather"
+
+  Note as the sample above shows, one subscriber can be interested in multiple
+  topics. There's no guarantee that a single subscribe ID will always be found in
+  consecutive lines of the config file (note subscriber '12a45d01' for instance).
+  In general, there's no significance to the ordering of records in the file.
+
+  The server's task is to accept all the incoming messages from publishers
+  (clients) and push them to the appropriate subscribers 10 times a second (that
+  is, once every 100ms). In each batch, the messages must be ordered by priority
+  field of the messages.
+
+  The server's job is to
+
+  - Accept incoming messages from all the publishers
+
+  - Appropriately process them by topic and priority into some in-memory data
+    structures
+
+  - Forward the existing messages to appropriate "subscriber" based on topic,
+    and priority according to the schedule defined above (once every 100ms).
+
+  For the purposes of this exercise, the subscribers are just files on local
+  storage. The server process should create a file for each subscriber ID found in
+  the config file. Then, for the rest of the lifetime of this process, in lieu of
+  "sending" data to a subscriber, simply append the data into this file.
+
+
+ Scaling requirements:
+
+  In the extreme case, the number of possible publishers that are registered to
+  use a single server can run into millions. At any given time, there can be
+  thousands of these publishers simultaneously sending data to the server and at
+  the same time, possibly thousands of subscribers listening for updates.
+
+  This server process would be designed to run on an 32 core server with a
+  proportionately large amount of memory. The software is being designed for a
+  fast growing company with new subscribers coming on-board every day. Our goal is
+  to design the server process to extract maximum use out of the available
+  hardware using a single server process.
+
+

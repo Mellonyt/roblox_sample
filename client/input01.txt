@@ -1,0 +1,7 @@
+"Sports"        : "NBA basketball has been canceled for 2020"        :  1
+"Science News"  : "New vaccine under trial for SARS-CoV-2"           :  1
+"Science News"  : "Long term data shows Hurricanes getting stronger"  :  3
+"Sports"        : "2020 California Spelling Bee will move to Zoom"    :  4
+"Journalism"    : "TheOnion writers quit en-masse. Satire is dead"    :  5
+"Weather"       : "Cloudy with a chance of aliens"                    :  6
+"Weather"       : "Hurricane Bob is bearing down on Florida keys"      :  1

@@ -1,0 +1,7 @@
+12a45d01    "Sports"
+12a45d01    "Science News"
+32d45c12    "Science News"
+544dda13    "Journalism"
+8700f123    "Weather"
+8700f123    "Journalism"
+12a45d01    "Weather"
