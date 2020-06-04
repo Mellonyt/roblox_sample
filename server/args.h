@@ -16,6 +16,7 @@ class Args {
 public:
     std::string     infilename = "" ;
     uint16_t        port = 15005 ;
+    uint16_t        verbose = 0 ;
 
     Args() ;
 

@@ -27,13 +27,20 @@ int16_t Args::parse( int argc, const char *argv[], std::string &msg ) {
                 case 'p' : { // port
                     if (!to_numeric( argv[++i], port, 65535 ) || (port < 1024)) {
                         msg = "invalid port" ;
-                        return -4 ;
+                        return -2 ;
+                    }
+                    break ;
+                }
+                case 'v' : { // verbose
+                    if (!to_numeric( argv[++i], verbose, 5 )) {
+                        msg = "invalid verbose level." ;
+                        return -3 ;
                     }
                     break ;
                 }
                 default:
                   msg = "unknown argument" ;
-                  return -6 ; // invalid arg
+                  return -4 ; // invalid arg
             }
         }
     }

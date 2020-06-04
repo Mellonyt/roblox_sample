@@ -17,6 +17,7 @@ class RBMessage {
         char           *_buffer ;
         uint16_t        _buffer_sz ;
         sockaddr        _addr ;
+        int16_t         _recv_sz ;
 
     public:
                         RBMessage() ;
@@ -27,6 +28,7 @@ class RBMessage {
         RBPacketHeader *pkt() { return _pkt ; }
         uint16_t        sz() { return _buffer_sz ; }
         sockaddr       &addr() { return _addr ; }
+        int16_t        &recv_sz() { return _recv_sz ; }
 } ; // class RBMessage
 
 #endif

@@ -66,7 +66,7 @@ int main( int argc, const char *argv[] ) {
                 cout << "error sending data to server\n" ; 
                 return -1 ;
             }
-            usleep( args.nDelay * 1000 ) ;
+            usleep( (args.nDelay <= 1) ? 500 : args.nDelay * 1000 ) ;
         }
         if (!args.continous)  args.nRepeats-- ;
         inf.reset() ;

@@ -54,7 +54,7 @@ all	: $(TARGETS)
 
 rbserver: $(OBJS)
 	@echo "Building " $@
-	$(CC) -o $@ $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS)
 	@echo "build complete - " $@
 
 clean	:
