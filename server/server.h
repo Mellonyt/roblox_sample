@@ -1,4 +1,9 @@
 /*
+    server.h
+    Server class definition
+
+    developer   r_mcinnis@solidice.com
+    date        june 03, 2020
 */
 #pragma once
 #ifndef SERVER_H

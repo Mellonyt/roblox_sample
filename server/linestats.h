@@ -1,4 +1,9 @@
 /*
+    linestats.h
+    LineStats class definition
+
+    developer   r_mcinnis@solidice.com
+    date        june 04, 2020
 */
 #pragma once
 #ifndef LINESTATS_H

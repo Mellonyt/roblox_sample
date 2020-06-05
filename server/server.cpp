@@ -1,4 +1,9 @@
 /*
+    server.cpp
+    Server class implementation
+
+    developer   r_mcinnis@solidice.com
+    date        june 03, 2020
 */
 #include "server.h"
 #include <unistd.h>
