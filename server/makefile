@@ -45,7 +45,7 @@ CC		= g++
 CFLAGS		= $(IFLAGS) $(OS_FLAGS) $(OS_DEFINES) 
 LDFLAGS		= $(LIBDIRS) $(LIBS) 
 
-SRC		= rbserver.cpp args.cpp utils.cpp rbmessage.cpp
+SRC		= rbserver.cpp args.cpp utils.cpp rbmessage.cpp server.cpp
 OBJS	= $(SRC:.cpp=.o) 
 
 TARGETS		= rbserver 
@@ -60,7 +60,10 @@ rbserver: $(OBJS)
 clean	:
 	rm -f *.o *~
 	rm -f $(TARGETS)
+	rm -f *.log
 
 error:
 	@echo $(ERROR)
 	@exit 1
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
